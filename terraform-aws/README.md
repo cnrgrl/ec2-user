@@ -28,6 +28,34 @@ sudo dnf -y install terraform
 
 5. Create `main.tf` file and configure it.
 
+```t
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "5.55.0"
+    }
+  }
+}
+
+provider "aws" {
+  region  = "us-east-1"
+}
+
+resource "aws_instance" "tf-ec2" {
+  ami           = "ami-01b799c439fd5516a" # find this in AWS EC2 service or google it:  ex:"free tier aws ami id"
+  instance_type = "t2.micro"
+  key_name      = "cnr_key"    # write your pem file without .pem extension
+  tags = {
+    "Name" = "tf-ec2"
+  }
+}
+
+resource "aws_s3_bucket" "tf-s3" {
+  bucket = "cnr-tf-test-bucket-addwhateveryouwant"
+}
+```
+
 6. Initialize terraform in the directory of `main.tf`. After that ``.terraform`` will be automatically created.
 
 ```bash
