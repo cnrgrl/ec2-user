@@ -21,3 +21,7 @@ resource "aws_instance" "tf-ec2" {
     "Name" = "created-by-tf"
   }
 }
+
+resource "aws_s3_bucket" "tf-s3" {
+  bucket = "cnr-tf-test-bucket"
+}
