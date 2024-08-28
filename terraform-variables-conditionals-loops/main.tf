@@ -15,20 +15,32 @@ provider "aws" {
   #env variable in my local has already .aws credentials
 }
 
+variable "ec2_name" {
+  default = "windows"
+
+}
+
+variable "ec2_type" {
+  default = "t2.micro"
+}
+
+variable "s3_bucket_name" {
+  default = "cnr-tf-test-bucket"
+}
+
 # Create an ec2 instance (aws linux)
 resource "aws_instance" "tf-ec2" {
-#   ami           = data.aws_ami.ubuntu.id
   ami           = "ami-066784287e358dad1"
-  instance_type = "t2.micro"
-  key_name = "cnr-key-1"
+  instance_type = var.ec2_type
+  key_name      = "cnr-key-1"
 
   tags = {
-    Name = "from-local-windows"
+    Name = "from-local-${var.ec2_name}"
   }
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "cnr-tf-test-bucket-1"
+  bucket = "${var.s3_bucket_name}-1"
 }
 
 # Outputs
