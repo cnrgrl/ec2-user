@@ -28,6 +28,10 @@ variable "s3_bucket_name" {
   default = "cnr-tf-test-bucket"
 }
 
+locals {
+  mytag = "from-local"
+}
+
 # Create an ec2 instance (aws linux)
 resource "aws_instance" "tf-ec2" {
   ami           = "ami-066784287e358dad1"
@@ -35,12 +39,15 @@ resource "aws_instance" "tf-ec2" {
   key_name      = "cnr-key-1"
 
   tags = {
-    Name = "from-local-${var.ec2_name}"
+    Name = "${local.mytag}-${var.ec2_name}"
   }
 }
 
 resource "aws_s3_bucket" "example" {
   bucket = "${var.s3_bucket_name}-1"
+   tags = {
+    Name = "${local.mytag}-created"
+  }
 }
 
 # Outputs
