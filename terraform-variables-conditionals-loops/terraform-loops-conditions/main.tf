@@ -21,5 +21,6 @@ variable "s3_bucket_name" {
 
 resource "aws_s3_bucket" "tf-s3-cnr" {
   bucket = "${var.s3_bucket_name}-${count.index}"
-  count = var.num_of_buckets
+#   count = var.num_of_buckets
+  count = var.num_of_buckets != 0 ? var.num_of_buckets : 3
 }
