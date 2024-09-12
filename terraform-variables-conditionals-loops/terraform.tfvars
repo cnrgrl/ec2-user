@@ -1,1 +1,1 @@
-s3_bucket_name = "tfvars-bucket"
+s3_bucket_name = "TERRAFORM-TFVARS-bucket"

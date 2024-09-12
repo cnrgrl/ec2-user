@@ -1,1 +1,1 @@
-s3_bucket_name = "cnr-tfvars-bucket"
+s3_bucket_name = "CNR-TFVARS-bucket"
