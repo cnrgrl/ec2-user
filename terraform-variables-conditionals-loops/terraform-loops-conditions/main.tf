@@ -35,3 +35,10 @@ resource "aws_iam_user" "new_users" {
   for_each = toset(var.users)
   name = each.value
 }
+output "bucket_regions" {
+  value = {
+    for user in var.users :
+    user => aws_s3_bucket.tf-s3-cnr[user].region
+  }
+  description = "The regions of the created S3 buckets"
+}
